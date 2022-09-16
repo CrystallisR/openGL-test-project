@@ -89,3 +89,34 @@ GLuint createShaderProgram(const char* vp, const char* fp) {
 	}
 	return vfProgram;
 }
+
+glm::mat4 viewTransform(glm::vec3 U, glm::vec3 V, glm::vec3 N, glm::vec3 cameraLoc) {
+	glm::mat4 viewMatrix = {
+		glm::vec4(U.x, V.x, N.x, 0),
+		glm::vec4(U.y, V.y, N.y, 0),
+		glm::vec4(U.z, V.z, N.z, 0),
+		glm::vec4(0, 0, 0, 1)
+	};
+	viewMatrix *= glm::translate(glm::mat4(1.0f), glm::vec3(-cameraLoc.x, -cameraLoc.y, -cameraLoc.z));
+	return viewMatrix;
+}
+
+/*
+	A common method to derive the view matrix is to compute a Look-at matrix given 
+the position of the camera in world space (usually referred to as the “eye” position), 
+an “up” vector (which is usually [0, 1, 0]T), and a target point to look at in world space.
+*/
+glm::mat4 lookAtCamera(glm::vec3 eye, glm::vec3 target, glm::vec3 up) {
+	glm::vec3 forward = glm::normalize(eye - target);
+	glm::vec3 side = glm::normalize(glm::cross(-forward, up));
+	up = glm::normalize(glm::cross(side, -forward));
+
+	glm::mat4 lookAtMatrix = {
+		glm::vec4(side.x, up.x, forward.x, 0),
+		glm::vec4(side.y, up.y, forward.y, 0),
+		glm::vec4(side.z, up.z, forward.z, 0),
+		glm::vec4(-glm::dot(side, eye), -glm::dot(up, eye), -glm::dot(forward, eye),  1)
+	};
+
+	return lookAtMatrix;
+}

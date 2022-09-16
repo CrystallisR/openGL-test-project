@@ -1,2 +1,5 @@
 It seems like that if you have created a .cpp file in vs
 even if you change its extension name, it will still be considered as a .cpp file
+
+A note for lookat target setting:
+if you want to look at an object, simply add its translate vector (trajectory) to target;
