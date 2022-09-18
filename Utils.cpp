@@ -102,9 +102,9 @@ glm::mat4 viewTransform(glm::vec3 U, glm::vec3 V, glm::vec3 N, glm::vec3 cameraL
 }
 
 /*
-	A common method to derive the view matrix is to compute a Look-at matrix given 
-the position of the camera in world space (usually referred to as the “eye” position), 
-an “up” vector (which is usually [0, 1, 0]T), and a target point to look at in world space.
+		A common method to derive the view matrix is to compute a Look-at matrix given 
+	the position of the camera in world space (usually referred to as the “eye” position), 
+	an “up” vector (which is usually [0, 1, 0]T), and a target point to look at in world space.
 */
 glm::mat4 lookAtCamera(glm::vec3 eye, glm::vec3 target, glm::vec3 up) {
 	glm::vec3 forward = glm::normalize(eye - target);
@@ -119,4 +119,22 @@ glm::mat4 lookAtCamera(glm::vec3 eye, glm::vec3 target, glm::vec3 up) {
 	};
 
 	return lookAtMatrix;
+}
+
+GLuint loadTexture(const char* texImagePath) {
+	GLuint textureID;
+	textureID = SOIL_load_OGL_texture(texImagePath,
+		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+	if (textureID == 0) std::cout << "could not find texture file" << texImagePath << std::endl;
+	// mipmapping
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	// if also anisotropic filtering
+	if (glewIsSupported("GL_EXT_texture_filter_anisotropic")) {
+		GLfloat anisoSetting = 0.0f;
+		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &anisoSetting);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, anisoSetting);
+	}
+	return textureID;
 }
