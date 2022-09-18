@@ -24,6 +24,9 @@
     <ClCompile Include="Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="solar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="solar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -58,17 +64,17 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="earth.jpg">
-      <Filter>Source Files</Filter>
+    <Image Include="res\earth.jpg">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="moon.jpg">
-      <Filter>Source Files</Filter>
+    <Image Include="res\Jupiter.jpg">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="sun.jpg">
-      <Filter>Source Files</Filter>
+    <Image Include="res\moon.jpg">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Jupiter.jpg">
-      <Filter>Source Files</Filter>
+    <Image Include="res\sun.jpg">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
 </Project>
